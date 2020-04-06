@@ -1,8 +1,7 @@
 import React from 'react';
-
-
 import './styles.css';
 
+teste
 
 export default function Register(){
     return (
