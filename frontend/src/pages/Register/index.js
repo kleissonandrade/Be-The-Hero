@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 import './styles.css';
-
-
-
-import { Link } from 'react-router-dom';
-import { FiPower } from 'react-icons/fi';
-
-
+import { Link, useHistory } from 'react-router-dom';
 import logoImage from '../../assets/logo.svg'
 import { FiArrowLeft } from 'react-icons/fi';
-
 import api from '../../services/api';
 
 export default function Register(){
@@ -19,7 +12,9 @@ export default function Register(){
     const [city, setCity] =  useState('');
     const [uf, setUf] = useState('');
 
-    function handleRegister(e) {
+    const history = useHistory();
+
+   async function handleRegister(e) {
         e.preventDefault();    
         const data = {
                 name,
@@ -29,9 +24,18 @@ export default function Register(){
                 uf,
         };
     
+        try{
+
+            const response = await api.post('ongs', data);        
+            alert(`Seu ID de acesso: ${response.data.id}`);
+            history.push('/')
+
+        }catch(err){
+
+            alert('Erro nocadastro, tente novamente!');
+
+        }
         
-        api.post('ongs', data)        
-        // alert(`Seu ID de acesso: ${response.data.id}`)
     }
 
     return (
